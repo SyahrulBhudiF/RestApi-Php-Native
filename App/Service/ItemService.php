@@ -2,10 +2,12 @@
 
 namespace App\Service;
 
+use App\Interface\Service;
+use App\Interface\Repository;
 use App\Model\Item;
 use App\Repository\ItemRepository;
 
-class ItemService
+class ItemService implements Repository
 {
     private ItemRepository $repository;
 
@@ -14,9 +16,9 @@ class ItemService
         $this->repository = new ItemRepository();
     }
 
-    public function getItems(): void
+    public function index(): void
     {
-        $items = $this->repository->getAllItems();
+        $items = $this->repository->index();
         http_response_code(200);
         $response = [
             "message" => "Successful get request",
@@ -25,9 +27,9 @@ class ItemService
         echo json_encode($response);
     }
 
-    public function getItem($id): void
+    public function show($id): void
     {
-        $item = $this->repository->getItem($id);
+        $item = $this->repository->show($id);
         http_response_code(200);
         $response = [
             "message" => "Successful get request",
@@ -36,14 +38,14 @@ class ItemService
         echo json_encode($response);
     }
 
-    public function createItem(): void
+    public function store(): void
     {
         $data = json_decode(file_get_contents("php://input"));
 
         if (!empty($data->name) && !empty($data->description)) {
             $item = new Item(null, $data->name, $data->description);
 
-            if ($this->repository->createItem($item)) {
+            if ($this->repository->store($item)) {
                 http_response_code(201);
                 echo json_encode(['message' => 'Item created']);
 
@@ -58,14 +60,14 @@ class ItemService
         }
     }
 
-    public function updateItem($id): void
+    public function update($id): void
     {
         $data = json_decode(file_get_contents("php://input"));
 
         if (!empty($data->id) && !empty($data->name) && !empty($data->description)) {
             $item = new Item($data->id, $data->name, $data->description);
 
-            if ($this->repository->updateItem($item, $id)) {
+            if ($this->repository->update($item, $id)) {
                 http_response_code(200);
                 echo json_encode(['message' => 'Item updated']);
 
@@ -80,10 +82,10 @@ class ItemService
         }
     }
 
-    public function deleteItem($id): void
+    public function destroy($id): void
     {
         if (!empty($data->id)) {
-            if ($this->repository->deleteItem($id)) {
+            if ($this->repository->destroy($id)) {
                 http_response_code(200);
                 echo json_encode(['message' => 'Item deleted']);
 

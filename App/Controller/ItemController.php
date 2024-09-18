@@ -22,22 +22,22 @@ class ItemController
         switch ($method) {
             case 'GET':
                 if ($this->id) {
-                    $this->service->getItem($this->id);
+                    $this->service->show($this->id);
                 } else {
-                    $this->service->getItems();
+                    $this->service->index();
                 }
                 break;
 
             case 'POST':
-                $this->service->createItem();
+                $this->service->store();
                 break;
 
             case 'PUT':
-                $this->service->updateItem($this->id);
+                $this->service->update($this->id);
                 break;
 
             case 'DELETE':
-                $this->service->deleteItem($this->id);
+                $this->service->destroy($this->id);
                 break;
 
             default:
