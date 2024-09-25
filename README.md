@@ -1,14 +1,10 @@
 # REST API KING PHP Native
-
-**Use design pattern CSRM**
-<br>Controller -> Service -> Repository -> Model -> Repository -> Service -> Controller
-
 **Penjelasan alur:**
 
 - Controller menerima request HTTP.
 - Controller memanggil Service yang sesuai.
-- Service meminta data dari Repository.
-- Repository berinteraksi dengan Model dan database.
+- Service meminta data dari Repository atau mengirim objek model ke Repository untuk menambah atau mengubah data.
+- Repository berinteraksi dengan database.
 - Data dikembalikan melalui Repository ke Service.
 - Service memproses data jika diperlukan.
 - Controller menerima hasil dari Service dan mengirimkan response.
