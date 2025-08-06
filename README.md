@@ -15,3 +15,5 @@
 - Lebih mudah untuk unit testing.
 - Lebih fleksibel untuk perubahan sumber data atau logika bisnis.
 - Cocok untuk aplikasi yang kompleks atau yang memerlukan skalabilitas.
+
+akwowkowkw mati ni repo
